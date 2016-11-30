@@ -7,12 +7,16 @@ import javafx.fxml.FXMLLoader;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Steven
  */
 @Singleton
 public class GuiceFXMLLoader {
+    
+    private static final Logger LOG = LoggerFactory.getLogger(GuiceFXMLLoader.class);
     
     @Inject
     private Provider<FXMLLoader> loaderProvider;
@@ -22,6 +26,7 @@ public class GuiceFXMLLoader {
     private EventBus eventBus;
     
     public <T> T load(FXMLView viewName){
+        LOG.debug("request to load FXML [{}]", viewName);
         FXMLLoader loader = loaderProvider.get();
         loader.setLocation(getClass().getResource(viewName.toString()));
         loader.setControllerFactory(controllerClass -> {
