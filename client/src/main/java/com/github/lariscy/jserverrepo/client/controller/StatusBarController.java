@@ -1,4 +1,4 @@
-package com.githup.lariscy.jserverrepo.client.controller;
+package com.github.lariscy.jserverrepo.client.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;

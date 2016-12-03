@@ -1,6 +1,6 @@
-package com.githup.lariscy.jserverrepo.client;
+package com.github.lariscy.jserverrepo.client;
 
-import com.githup.lariscy.jserverrepo.client.guice.GuiceModule;
+import com.github.lariscy.jserverrepo.client.guice.GuiceModule;
 import com.gluonhq.ignite.guice.GuiceContext;
 import java.util.Arrays;
 import javafx.application.Application;

@@ -1,4 +1,4 @@
-package com.githup.lariscy.jserverrepo.client.util;
+package com.github.lariscy.jserverrepo.client.util;
 
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Injector;
@@ -31,6 +31,7 @@ public class GuiceFXMLLoader {
         loader.setLocation(getClass().getResource(viewName.toString()));
         loader.setControllerFactory(controllerClass -> {
             Object controller = injector.getInstance(controllerClass);
+            LOG.debug("registering class [{}] with EventBus", controllerClass.getName());
             eventBus.register(controller);
             return controller;
         });

@@ -1,4 +1,4 @@
-package com.githup.lariscy.jserverrepo.client.controller;
+package com.github.lariscy.jserverrepo.client.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Steven
  */
-public class TopMenuController implements Initializable {
+public class ContainerController implements Initializable {
     
-    private static final Logger LOG = LoggerFactory.getLogger(TopMenuController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ContainerController.class);
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
