@@ -4,10 +4,11 @@ import com.github.lariscy.jserverrepo.client.AppGUI;
 import com.github.lariscy.jserverrepo.client.eventbus.LoginEvent;
 import com.github.lariscy.jserverrepo.client.model.User;
 import com.github.lariscy.jserverrepo.client.service.LoginService;
-import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +45,7 @@ public class LoginFormController implements Initializable {
     @Inject
     private LoginService loginService;
     @Inject
-    private EventBus eventBus;
+    private ExecutorService backgroundExecutor;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -58,21 +59,26 @@ public class LoginFormController implements Initializable {
 
     @FXML
     private void handleLogin(ActionEvent event) {
-        loginService.login(new User(txtUsername.getText(), txtPassword.getText()));
+        CompletableFuture.runAsync(() -> 
+            loginService.login(new User(txtUsername.getText(), txtPassword.getText())), 
+                backgroundExecutor);
     }
 
     @FXML
     private void handleGuestLogin(ActionEvent event) {
-        loginService.loginGuest(new User("Guest", ""));
+        CompletableFuture.runAsync(() -> 
+            loginService.loginGuest(new User("Guest", "")), 
+                backgroundExecutor);
     }
     
     @Subscribe
-    private void ebHandleLoginEvent(LoginEvent loginEvent){
+    public void ebHandleLoginEvent(LoginEvent loginEvent){
         LOG.debug("ebHandleLoginEvent() : LoginEvent");
         if (loginEvent.isSuccess()){
             appGUI.loadServerTree();
         } else {
-            lblError.setText(loginEvent.getMessage());
+            Platform.runLater(() -> 
+                lblError.setText(loginEvent.getMessage()));
         }
     }
     

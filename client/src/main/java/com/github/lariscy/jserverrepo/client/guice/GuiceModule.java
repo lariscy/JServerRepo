@@ -1,9 +1,12 @@
 package com.github.lariscy.jserverrepo.client.guice;
 
+import com.github.lariscy.jserverrepo.client.concurrent.util.ExecutorsUtil;
 import com.github.lariscy.jserverrepo.client.service.LoginService;
 import com.github.lariscy.jserverrepo.client.service.MockLoginService;
+import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.AbstractModule;
+import java.util.concurrent.ExecutorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,10 +20,25 @@ public class GuiceModule extends AbstractModule {
     @Override
     public void configure() {
         LOG.debug("configuring GuiceModule");
-        //bind(AppGUI.class).asEagerSingleton();
-        //bind(GuiceFXMLLoader.class).asEagerSingleton();
-        bind(EventBus.class).asEagerSingleton();
+        bind(EventBus.class).toInstance(getAsynEventBus());
+        bind(ExecutorService.class).toInstance(getBackgroundExecutor());
         bind(LoginService.class).to(MockLoginService.class);
+    }
+    
+    private EventBus eventBus;
+    private EventBus getAsynEventBus(){
+        if (eventBus == null){
+            eventBus = new AsyncEventBus(ExecutorsUtil.getSingleThreadExecutor("EventBus Executor Thread"));
+        }
+        return eventBus;
+    }
+    
+    private ExecutorService backgroundExecutor;
+    private ExecutorService getBackgroundExecutor(){
+        if (backgroundExecutor == null){
+            backgroundExecutor = ExecutorsUtil.getFixedThreadPoolExecutor("Background Thread", 2);
+        }
+        return backgroundExecutor;
     }
 
 }

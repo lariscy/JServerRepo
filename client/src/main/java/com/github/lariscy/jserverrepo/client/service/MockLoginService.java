@@ -33,6 +33,7 @@ public class MockLoginService implements LoginService {
     @Override
     public void login(User user) {
         LOG.debug("login()");
+        
         if (user.getUsername().equals(USER_USERNAME) && user.getPassword().equals(USER_PASSWORD)){
             user.setUserRole(UserRole.USER);
             user.setLoggedIn(true);
