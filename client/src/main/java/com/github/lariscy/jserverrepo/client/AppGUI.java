@@ -32,7 +32,7 @@ public class AppGUI {
     }
 
     private void initLayout() {
-        root = loader.load(FXMLView.CONTAINER);
+        root = (BorderPane) loader.load(FXMLView.CONTAINER);
         
         root.setTop(loader.load(FXMLView.TOP_MENU));
         root.setLeft(loader.load(FXMLView.SIDE_MENU));

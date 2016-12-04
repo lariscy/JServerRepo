@@ -3,7 +3,10 @@ package com.github.lariscy.jserverrepo.client.util;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Injector;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
@@ -18,6 +21,8 @@ public class GuiceFXMLLoader {
     
     private static final Logger LOG = LoggerFactory.getLogger(GuiceFXMLLoader.class);
     
+    private final Map<FXMLView, Object> controllerCache = new HashMap<>();
+    
     @Inject
     private Provider<FXMLLoader> loaderProvider;
     @Inject
@@ -25,20 +30,28 @@ public class GuiceFXMLLoader {
     @Inject
     private EventBus eventBus;
     
-    public <T> T load(FXMLView viewName){
+    public Parent load(FXMLView viewName){
         LOG.debug("request to load FXML [{}]", viewName);
         FXMLLoader loader = loaderProvider.get();
         loader.setLocation(getClass().getResource(viewName.toString()));
         loader.setControllerFactory(controllerClass -> {
+            if (controllerCache.containsKey(viewName)){
+                // return cached controller instance
+                return controllerCache.get(viewName);
+            }
+            
             Object controller = injector.getInstance(controllerClass);
             LOG.debug("registering class [{}] with EventBus", controllerClass.getName());
             eventBus.register(controller);
+            controllerCache.put(viewName, controller);
+            // return new controller instance
             return controller;
         });
+        
         try {
             return loader.load();
         } catch (IOException ex) {
-            throw new TypeNotPresentException(String.format("error loading view with name: %s", viewName), ex);
+            throw new TypeNotPresentException(String.format("error loading view [%s]", viewName), ex);
         }
     }
     

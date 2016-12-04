@@ -16,6 +16,6 @@ public class ServerTreeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LOG.debug("initialize");
-    }    
+    }
     
 }

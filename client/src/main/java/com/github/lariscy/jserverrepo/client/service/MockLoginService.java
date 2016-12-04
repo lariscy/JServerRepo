@@ -28,8 +28,6 @@ public class MockLoginService implements LoginService {
     private static final String READ_ONLY_USERNAME = "readonly";
     private static final String READ_ONLY_PASSWORD = "reaonly";
     
-    private User user;
-    
     @Override
     public void login(User user) {
         LOG.debug("login()");
@@ -47,9 +45,9 @@ public class MockLoginService implements LoginService {
             user.setLoggedIn(false);
         }
         user.setPassword(null); // clear user password so its not saved in memory
-        this.user = user;
+        
         eventBus.post(new LoginEvent(user.isLoggedIn(), 
-                user.isLoggedIn() ? "login success" : "Error: Login Failed!"));
+                user.isLoggedIn() ? "login success" : "Error: Login Failed!", user));
     }
 
     @Override
@@ -57,19 +55,14 @@ public class MockLoginService implements LoginService {
         LOG.debug("loginGuest()");
         user.setUserRole(UserRole.READ_ONLY);
         user.setLoggedIn(true);
-        this.user = user;
-        eventBus.post(new LoginEvent(true, "guest login successful"));
+        
+        eventBus.post(new LoginEvent(true, "guest login success", user));
     }
 
     @Override
     public void logout(User user) {
-        user = null;
-        this.user = user;
-        eventBus.post(new LogoutEvent(true, "logout success"));
-    }
-
-    public User getUser() {
-        return user;
+        LOG.debug("logout()");
+        eventBus.post(new LogoutEvent(true, "logout success", user));
     }
     
 }

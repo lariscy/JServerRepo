@@ -7,7 +7,6 @@ import com.github.lariscy.jserverrepo.client.service.LoginService;
 import com.google.common.eventbus.Subscribe;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -59,21 +58,19 @@ public class LoginFormController implements Initializable {
 
     @FXML
     private void handleLogin(ActionEvent event) {
-        CompletableFuture.runAsync(() -> 
-            loginService.login(new User(txtUsername.getText(), txtPassword.getText())), 
-                backgroundExecutor);
+        backgroundExecutor.execute(() -> 
+            loginService.login(new User(txtUsername.getText(), txtPassword.getText())));
     }
 
     @FXML
     private void handleGuestLogin(ActionEvent event) {
-        CompletableFuture.runAsync(() -> 
-            loginService.loginGuest(new User("Guest", "")), 
-                backgroundExecutor);
+        backgroundExecutor.execute(() -> 
+            loginService.loginGuest(new User("Guest", null)));
     }
     
     @Subscribe
     public void ebHandleLoginEvent(LoginEvent loginEvent){
-        LOG.debug("ebHandleLoginEvent() : LoginEvent");
+        LOG.debug("LoginEvent received: {}", loginEvent);
         if (loginEvent.isSuccess()){
             appGUI.loadServerTree();
         } else {
