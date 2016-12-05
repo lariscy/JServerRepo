@@ -1,6 +1,7 @@
 package com.github.lariscy.jserverrepo.client;
 
 import com.github.lariscy.jserverrepo.client.guice.GuiceModule;
+import com.github.lariscy.jserverrepo.client.net.NetworkClient;
 import com.gluonhq.ignite.guice.GuiceContext;
 import java.util.Arrays;
 import javafx.application.Application;
@@ -23,10 +24,12 @@ public class App extends Application {
     
     @Inject
     private AppGUI appGUI;
+    @Inject
+    private NetworkClient networkClient;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        LOG.debug("Application.start()");
+        LOG.info("Application.start()");
         this.primaryStage = primaryStage;
         context.init();
         appGUI.start(primaryStage);
@@ -34,9 +37,10 @@ public class App extends Application {
 
     @Override
     public void stop() throws Exception {
-        LOG.debug("Application.stop()");
+        LOG.info("Application.stop()");
+        if (networkClient.isConnected()){ networkClient.disconnect(); }
+        networkClient.closeThreads();
         super.stop();
-        
     }
     
     public static void main(String[] args) {

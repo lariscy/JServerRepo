@@ -1,7 +1,9 @@
 package com.github.lariscy.jserverrepo.client;
 
+import com.github.lariscy.jserverrepo.client.net.NetworkClient;
 import com.github.lariscy.jserverrepo.client.util.GuiceFXMLLoader;
 import com.github.lariscy.jserverrepo.client.util.GuiceFXMLLoader.FXMLView;
+import java.util.concurrent.ExecutorService;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -24,11 +26,17 @@ public class AppGUI {
     
     @Inject
     private GuiceFXMLLoader loader;
+    @Inject
+    private NetworkClient networkClient;
+    @Inject
+    private ExecutorService backgroundExecutor;
 
     public void start(Stage stage){
         this.stage = stage;
         initLayout();
         stage.show();
+        backgroundExecutor.execute(() ->
+            networkClient.connect("localhost", 8585));
     }
 
     private void initLayout() {
