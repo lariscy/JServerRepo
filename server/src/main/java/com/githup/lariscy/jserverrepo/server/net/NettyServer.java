@@ -1,5 +1,8 @@
 package com.githup.lariscy.jserverrepo.server.net;
 
+import com.githup.lariscy.jserverrepo.server.net.handler.ChannelGroupHandler;
+import com.githup.lariscy.jserverrepo.server.net.handler.IPFilterHandler;
+import com.githup.lariscy.jserverrepo.server.net.handler.LoginHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -32,8 +35,7 @@ public final class NettyServer {
     
     private int port;
 
-    public NettyServer(int port) {
-        this.port = port;
+    public NettyServer() {
         setup();
     }
     
@@ -45,9 +47,11 @@ public final class NettyServer {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
                 ch.pipeline().addLast(
-                    new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
-                    new ObjectEncoder(),
-                    new MockServerHandler(instance)
+                    new IPFilterHandler(), //inbound
+                    new ChannelGroupHandler(instance), //inbound
+                    new ObjectDecoder(ClassResolvers.cacheDisabled(null)), //inbound
+                    new ObjectEncoder(), //outbound
+                    new LoginHandler() //inbound
                 );
             }
         });
@@ -72,12 +76,22 @@ public final class NettyServer {
     
     public void addChannel(Channel channel){
         channelGroup.add(channel);
-        System.out.println("channel ["+channel.remoteAddress()+"] added - current size: "+channelGroup.size());
+        LOG.debug("channel [{}] added - current size: {}", channel.remoteAddress(), channelGroup.size());
     }
     
     public void removeChannel(Channel channel){
-        channelGroup.remove(channel);
-        System.out.println("channel ["+channel.remoteAddress()+"] removed - current size: "+channelGroup.size());
+        // no point to remove from ChannelGroup because it seems that it gets
+        // removed automatically when the channel is closed
+        //channelGroup.remove(channel);
+        LOG.debug("channel [{}] removed - current size: {}", channel.remoteAddress(), channelGroup.size());
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 
 }

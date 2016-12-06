@@ -1,12 +1,17 @@
-package com.githup.lariscy.jserverrepo.server.net;
+package com.githup.lariscy.jserverrepo.server.net.handler;
 
+import com.githup.lariscy.jserverrepo.server.net.NettyServer;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Steven
  */
 public class MockServerHandler extends SimpleChannelInboundHandler<Object> {
+    
+    private static final Logger LOG = LoggerFactory.getLogger(MockServerHandler.class);
 
     private final NettyServer nettyServer;
 
@@ -15,8 +20,8 @@ public class MockServerHandler extends SimpleChannelInboundHandler<Object> {
     }
     
     @Override
-    protected void channelRead0(ChannelHandlerContext chc, Object i) throws Exception {
-        
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
+        LOG.info("received message: "+ msg);
     }
 
     @Override
