@@ -1,2 +1,4 @@
 /client/target/
 /client/logs/
+/server/target/
+/server/logs/
