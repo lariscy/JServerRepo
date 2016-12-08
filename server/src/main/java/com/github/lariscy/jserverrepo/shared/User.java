@@ -1,13 +1,20 @@
-package com.githup.lariscy.jserverrepo.shared;
+package com.github.lariscy.jserverrepo.shared;
+
+import java.io.Serializable;
 
 /**
  * @author Steven
  */
-public class User {
+public class User implements Serializable {
     
     private String username;
     private String password;
     private UserRole userRole;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public String getUsername() {
         return username;

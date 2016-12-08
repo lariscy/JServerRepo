@@ -1,14 +1,15 @@
-package com.github.lariscy.jserverrepo.client.model;
+package com.github.lariscy.jserverrepo.shared;
+
+import java.io.Serializable;
 
 /**
- * @author Steven Lariscy
+ * @author Steven
  */
-public class User {
+public class User implements Serializable {
     
     private String username;
     private String password;
     private UserRole userRole;
-    private boolean loggedIn;
 
     public User(String username, String password) {
         this.username = username;
@@ -39,17 +40,4 @@ public class User {
         this.userRole = userRole;
     }
 
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" + "username=" + username + ", password=" + password + ", userRole=" + userRole + ", loggedIn=" + loggedIn + '}';
-    }
-    
 }

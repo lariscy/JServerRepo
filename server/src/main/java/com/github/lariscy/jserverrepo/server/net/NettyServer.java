@@ -1,8 +1,11 @@
-package com.githup.lariscy.jserverrepo.server.net;
+package com.github.lariscy.jserverrepo.server.net;
 
-import com.githup.lariscy.jserverrepo.server.net.handler.ChannelGroupHandler;
-import com.githup.lariscy.jserverrepo.server.net.handler.IPFilterHandler;
-import com.githup.lariscy.jserverrepo.server.net.handler.LoginHandler;
+import com.github.lariscy.jserverrepo.server.net.handler.ChannelGroupHandler;
+import com.github.lariscy.jserverrepo.server.net.handler.IPFilterHandler;
+import com.github.lariscy.jserverrepo.server.net.handler.LoginHandler;
+import com.github.lariscy.jserverrepo.server.net.handler.TestObjHandler;
+import com.github.lariscy.jserverrepo.server.net.handler.TestStringHandler;
+import com.github.lariscy.jserverrepo.server.service.LoginService;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -17,13 +20,16 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author Steven
  */
-public final class NettyServer {
+@Singleton
+public class NettyServer {
     
     private static final Logger LOG = LoggerFactory.getLogger(NettyServer.class);
     
@@ -34,6 +40,9 @@ public final class NettyServer {
     private final ChannelGroup channelGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     
     private int port;
+    
+    @Inject
+    private LoginService loginService;
 
     public NettyServer() {
         setup();
@@ -51,7 +60,9 @@ public final class NettyServer {
                     new ChannelGroupHandler(instance), //inbound
                     new ObjectDecoder(ClassResolvers.cacheDisabled(null)), //inbound
                     new ObjectEncoder(), //outbound
-                    new LoginHandler() //inbound
+                    new TestObjHandler(), //inbound
+                    new LoginHandler(loginService), //inbound
+                    new TestStringHandler() //inbound
                 );
             }
         });
@@ -69,7 +80,7 @@ public final class NettyServer {
     }
     
     public void shutdown(){
-        System.out.println("server shutting down");
+        LOG.info("server shutting down");
         workerGroup.shutdownGracefully();
         bossGroup.shutdownGracefully();
     }

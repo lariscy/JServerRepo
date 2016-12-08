@@ -1,6 +1,6 @@
-package com.githup.lariscy.jserverrepo.server.net.handler;
+package com.github.lariscy.jserverrepo.server.net.handler;
 
-import com.githup.lariscy.jserverrepo.server.net.NettyServer;
+import com.github.lariscy.jserverrepo.server.net.NettyServer;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;

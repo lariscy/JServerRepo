@@ -1,4 +1,4 @@
-package com.githup.lariscy.jserverrepo.server.net.handler;
+package com.github.lariscy.jserverrepo.server.net.handler;
 
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;

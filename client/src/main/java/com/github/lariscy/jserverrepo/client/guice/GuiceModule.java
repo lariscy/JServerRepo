@@ -2,7 +2,7 @@ package com.github.lariscy.jserverrepo.client.guice;
 
 import com.github.lariscy.jserverrepo.client.concurrent.util.ExecutorsUtil;
 import com.github.lariscy.jserverrepo.client.service.LoginService;
-import com.github.lariscy.jserverrepo.client.service.MockLoginService;
+import com.github.lariscy.jserverrepo.client.service.NetworkLoginService;
 import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.AbstractModule;
@@ -22,7 +22,7 @@ public class GuiceModule extends AbstractModule {
         LOG.debug("configuring GuiceModule");
         bind(EventBus.class).toInstance(getAsynEventBus());
         bind(ExecutorService.class).toInstance(getBackgroundExecutor());
-        bind(LoginService.class).to(MockLoginService.class);
+        bind(LoginService.class).to(NetworkLoginService.class);
     }
     
     private EventBus eventBus;

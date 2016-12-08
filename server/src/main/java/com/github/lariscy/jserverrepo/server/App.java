@@ -1,7 +1,7 @@
-package com.githup.lariscy.jserverrepo.server;
+package com.github.lariscy.jserverrepo.server;
 
-import com.githup.lariscy.jserverrepo.server.guice.GuiceModule;
-import com.githup.lariscy.jserverrepo.server.net.NettyServer;
+import com.github.lariscy.jserverrepo.server.guice.GuiceModule;
+import com.github.lariscy.jserverrepo.server.net.NettyServer;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import javax.inject.Inject;
@@ -24,8 +24,14 @@ public class App {
     }
     
     public void run(){
+        Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
+        
         nettyServer.setPort(8585);
         nettyServer.bind();
+    }
+    
+    private void stop(){
+        nettyServer.shutdown();
     }
 
 }

@@ -1,6 +1,6 @@
 package com.github.lariscy.jserverrepo.client.eventbus;
 
-import com.github.lariscy.jserverrepo.client.model.User;
+import com.github.lariscy.jserverrepo.shared.User;
 
 /**
  * @author Steven Lariscy

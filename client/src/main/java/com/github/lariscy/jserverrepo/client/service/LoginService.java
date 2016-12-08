@@ -1,6 +1,6 @@
 package com.github.lariscy.jserverrepo.client.service;
 
-import com.github.lariscy.jserverrepo.client.model.User;
+import com.github.lariscy.jserverrepo.shared.User;
 
 /**
  * @author Steven Lariscy

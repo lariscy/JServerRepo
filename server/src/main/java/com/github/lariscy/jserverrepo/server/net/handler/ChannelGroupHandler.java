@@ -1,24 +1,18 @@
-package com.githup.lariscy.jserverrepo.server.net.handler;
+package com.github.lariscy.jserverrepo.server.net.handler;
 
-import com.githup.lariscy.jserverrepo.server.net.NettyServer;
+import com.github.lariscy.jserverrepo.server.net.NettyServer;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * @author Steven
  */
-public class ChannelGroupHandler extends SimpleChannelInboundHandler<Object> {
+public class ChannelGroupHandler extends ChannelInboundHandlerAdapter {
     
     private final NettyServer nettyServer;
 
     public ChannelGroupHandler(NettyServer nettyServer) {
         this.nettyServer = nettyServer;
-    }
-
-    @Override
-    protected void channelRead0(ChannelHandlerContext chc, Object i) throws Exception {
-        // not doing anything here
-        // class only used for keeping up with ChannelGroup in NettyServer
     }
 
     @Override
@@ -31,6 +25,7 @@ public class ChannelGroupHandler extends SimpleChannelInboundHandler<Object> {
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         nettyServer.removeChannel(ctx.channel());
         super.channelInactive(ctx);
+        
     }
 
 }

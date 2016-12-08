@@ -2,8 +2,8 @@ package com.github.lariscy.jserverrepo.client.controller;
 
 import com.github.lariscy.jserverrepo.client.AppGUI;
 import com.github.lariscy.jserverrepo.client.eventbus.LoginEvent;
-import com.github.lariscy.jserverrepo.client.model.User;
 import com.github.lariscy.jserverrepo.client.service.LoginService;
+import com.github.lariscy.jserverrepo.shared.User;
 import com.google.common.eventbus.Subscribe;
 import java.net.URL;
 import java.util.ResourceBundle;

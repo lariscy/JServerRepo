@@ -1,6 +1,6 @@
-package com.githup.lariscy.jserverrepo.server.service;
+package com.github.lariscy.jserverrepo.server.service;
 
-import com.githup.lariscy.jserverrepo.shared.User;
+import com.github.lariscy.jserverrepo.shared.User;
 
 /**
  * @author Steven
