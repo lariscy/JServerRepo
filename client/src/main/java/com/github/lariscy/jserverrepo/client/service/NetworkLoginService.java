@@ -39,7 +39,8 @@ public class NetworkLoginService implements LoginService {
 
     @Override
     public void logout(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LOG.debug("requesting to logout user: "+user.getUsername());
+        networkClient.getChannelHandlerContext().writeAndFlush(new LoginRequest(LoginRequest.Type.LOGOUT, user));
     }
 
 }

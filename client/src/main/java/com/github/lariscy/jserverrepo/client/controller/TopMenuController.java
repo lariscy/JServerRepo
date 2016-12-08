@@ -3,6 +3,7 @@ package com.github.lariscy.jserverrepo.client.controller;
 import com.github.lariscy.jserverrepo.client.AppGUI;
 import com.github.lariscy.jserverrepo.client.eventbus.LogoutEvent;
 import com.github.lariscy.jserverrepo.client.service.LoginService;
+import com.github.lariscy.jserverrepo.shared.User;
 import com.google.common.eventbus.Subscribe;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,7 +40,8 @@ public class TopMenuController implements Initializable {
 
     @FXML
     private void handleLogout(ActionEvent event) {
-        backgroundExecutor.execute(() -> loginService.logout(null));
+        //@TODO dummy
+        backgroundExecutor.execute(() -> loginService.logout(new User("dummy", null)));
     }
     
     @Subscribe
