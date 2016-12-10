@@ -7,23 +7,19 @@ import java.io.Serializable;
  */
 public class LoginRequest implements Serializable {
     
-    public enum Type implements Serializable {
-        LOGIN, LOGOUT;
-    }
-    
-    private Type requestType;
+    private LoginRequestType requestType;
     private User user;
 
-    public LoginRequest(Type requestType, User user) {
+    public LoginRequest(LoginRequestType requestType, User user) {
         this.requestType = requestType;
         this.user = user;
     }
 
-    public Type getRequestType() {
+    public LoginRequestType getRequestType() {
         return requestType;
     }
 
-    public void setRequestType(Type requestType) {
+    public void setRequestType(LoginRequestType requestType) {
         this.requestType = requestType;
     }
 

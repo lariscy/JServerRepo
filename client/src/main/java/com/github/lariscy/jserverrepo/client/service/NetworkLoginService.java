@@ -2,6 +2,7 @@ package com.github.lariscy.jserverrepo.client.service;
 
 import com.github.lariscy.jserverrepo.client.net.NetworkClient;
 import com.github.lariscy.jserverrepo.shared.LoginRequest;
+import com.github.lariscy.jserverrepo.shared.LoginRequestType;
 import com.github.lariscy.jserverrepo.shared.TestObj;
 import com.github.lariscy.jserverrepo.shared.User;
 import io.netty.util.concurrent.Future;
@@ -22,7 +23,7 @@ public class NetworkLoginService implements LoginService {
     @Override
     public void login(User user) {
         LOG.debug("requesting to login user: "+user.getUsername());
-        networkClient.getChannelHandlerContext().writeAndFlush(new LoginRequest(LoginRequest.Type.LOGIN, user));
+        networkClient.getChannelHandlerContext().writeAndFlush(new LoginRequest(LoginRequestType.LOGIN, user));
     }
 
     @Override
@@ -40,7 +41,7 @@ public class NetworkLoginService implements LoginService {
     @Override
     public void logout(User user) {
         LOG.debug("requesting to logout user: "+user.getUsername());
-        networkClient.getChannelHandlerContext().writeAndFlush(new LoginRequest(LoginRequest.Type.LOGOUT, user));
+        networkClient.getChannelHandlerContext().writeAndFlush(new LoginRequest(LoginRequestType.LOGOUT, user));
     }
 
 }
