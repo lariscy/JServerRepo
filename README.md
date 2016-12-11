@@ -4,4 +4,4 @@ Java client / server application for storage and launch of servers and URLs. Mea
 ##### List of modules:
 * [client](https://github.com/lariscy/JServerRepo/tree/master/client) (JServerRepo-Client) - JavaFX desktop client
 * [server](https://github.com/lariscy/JServerRepo/tree/master/server) (JServerRepo-Server) - Java server
-* [shared](https://github.com/lariscy/JServerRepo/tree/master/shared) (JServerRepo-Shared) - Shared code for modules above
+* [shared](https://github.com/lariscy/JServerRepo/tree/master/shared) (JServerRepo-Shared) - Shared code for client and server modules
