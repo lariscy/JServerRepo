@@ -68,14 +68,16 @@ public class NettyServer {
         });
     }
     
-    public void bind(){
-        LOG.info("attempting to bind server to port {}", port);
+    public boolean bind(){
+        LOG.debug("attempting to bind server to port {}", port);
         Future bindFuture = b.bind(port);
         bindFuture.awaitUninterruptibly();
         if (bindFuture.isSuccess()){
-            LOG.debug("server now listening on port {} ", port);
+            LOG.info("server now listening on port {} ", port);
+            return true;
         } else {
             LOG.error("server failed to bind to port {}", port, bindFuture.cause());
+            return false;
         }
     }
     

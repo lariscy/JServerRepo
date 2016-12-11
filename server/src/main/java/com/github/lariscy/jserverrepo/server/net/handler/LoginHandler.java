@@ -25,9 +25,11 @@ public class LoginHandler extends SimpleChannelInboundHandler<LoginRequest> {
         LOG.debug("received LoginRequest from {} [{}]", msg.getUser().getUsername(), ctx.channel().remoteAddress());
         switch(msg.getRequestType()){
             case LOGIN:
+                //@TODO handle login result and respond
                 LOG.debug("login result: {}", loginService.login(msg.getUser()));
                 break;
             case LOGOUT:
+                //@TODO handle logout result and respond
                 LOG.debug("logout result: {}", loginService.logout(msg.getUser()));
                 break;
         }

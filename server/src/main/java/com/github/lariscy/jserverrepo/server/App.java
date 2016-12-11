@@ -20,6 +20,7 @@ public class App {
     private NettyServer nettyServer;
     
     public static void main(String[] args) {
+        LOG.info("App starting");
         INJECTOR.getInstance(App.class).run();
     }
     
@@ -27,7 +28,10 @@ public class App {
         Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
         
         nettyServer.setPort(8585);
-        nettyServer.bind();
+        if (!nettyServer.bind()){
+            LOG.error("server failed to start");
+            System.exit(-1);
+        }
     }
     
     private void stop(){
