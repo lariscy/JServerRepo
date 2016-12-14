@@ -23,7 +23,7 @@
     </Appenders>
     
     <Loggers>
-        <Logger name="io.netty" level="info">
+        <Logger name="io.netty" level="info" additivity="false">
             <appender-ref ref="file-log"/>
             <appender-ref ref="console"/>
         </Logger>
