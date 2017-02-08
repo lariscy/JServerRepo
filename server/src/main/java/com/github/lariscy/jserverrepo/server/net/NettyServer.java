@@ -20,15 +20,15 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GlobalEventExecutor;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Steven
  */
-@Singleton
+@Component
 public class NettyServer {
     
     private static final Logger LOG = LoggerFactory.getLogger(NettyServer.class);
@@ -41,7 +41,7 @@ public class NettyServer {
     
     private int port;
     
-    @Inject
+    @Autowired
     private LoginService loginService;
 
     public NettyServer() {

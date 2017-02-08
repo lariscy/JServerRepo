@@ -1,10 +1,12 @@
 package com.github.lariscy.jserverrepo.server.service;
 
 import com.github.lariscy.jserverrepo.shared.User;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Steven
  */
+@Component
 public class MockLoginService implements LoginService {
 
     @Override

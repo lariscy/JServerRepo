@@ -1,27 +1,30 @@
 package com.github.lariscy.jserverrepo.server;
 
-import com.github.lariscy.jserverrepo.server.guice.GuiceModule;
 import com.github.lariscy.jserverrepo.server.net.NettyServer;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Steven
  */
+@Component
 public class App {
     
     private static final Logger LOG = LoggerFactory.getLogger(App.class);
-    private static final Injector INJECTOR = Guice.createInjector(new GuiceModule());
     
-    @Inject
+    @Autowired
     private NettyServer nettyServer;
     
     public static void main(String[] args) {
         LOG.info("App starting");
-        INJECTOR.getInstance(App.class).run();
+        
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
+        App me = context.getBean(App.class);
+        me.run();
     }
     
     public void run(){
