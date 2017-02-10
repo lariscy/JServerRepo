@@ -8,7 +8,7 @@ Java server
 > below. These are used in spring-context.xml.
 
 ```
-db.username=serverrepoadmin
-db.password=serverrepoadmin
-db.url=jdbc:mysql://a70tpisypals002/serverrepository
+db.username=DATABASE_USERNAME
+db.password=DATABASE_PASSWORD
+db.url=jdbc:mysql://DATABASE_SERVER/DATABASE_NAME
 ```
