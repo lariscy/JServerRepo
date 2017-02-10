@@ -1,6 +1,10 @@
 package com.github.lariscy.jserverrepo.server;
 
+import com.github.lariscy.jserverrepo.server.dao.NodeDaoMysql;
+import com.github.lariscy.jserverrepo.server.model.Node;
 import com.github.lariscy.jserverrepo.server.net.NettyServer;
+import com.google.gson.Gson;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,12 @@ public class App {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
         App me = context.getBean(App.class);
         me.run();
+        
+        // @TODO remove below test
+        NodeDaoMysql nodeDao = context.getBean(NodeDaoMysql.class);
+        List<Node> nodes = nodeDao.getNodes();
+        Gson gson = new Gson();
+        System.out.println(gson.toJson(nodes));
     }
     
     public void run(){

@@ -6,10 +6,10 @@ package com.github.lariscy.jserverrepo.server.model;
 public class Node {
     
     private long id;
-    private long parentId;
+    private Long parentId;
     private String name;
     private String label;
-    private int osTypeId;
+    private Integer osTypeId;
 
     public long getId() {
         return id;
@@ -19,11 +19,11 @@ public class Node {
         this.id = id;
     }
 
-    public long getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(long parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -43,11 +43,11 @@ public class Node {
         this.label = label;
     }
 
-    public int getOsTypeId() {
+    public Integer getOsTypeId() {
         return osTypeId;
     }
 
-    public void setOsTypeId(int osTypeId) {
+    public void setOsTypeId(Integer osTypeId) {
         this.osTypeId = osTypeId;
     }
     

@@ -3,3 +3,4 @@
 /server/target/
 /server/logs/
 /shared/target/
+/server/src/main/resources/db.properties
