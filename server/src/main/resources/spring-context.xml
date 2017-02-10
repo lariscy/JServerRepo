@@ -10,12 +10,15 @@
 
     <context:component-scan base-package="
         com.github.lariscy.jserverrepo.server, 
-        com.github.lariscy.jserverrepo.server.net, 
         com.github.lariscy.jserverrepo.server.dao, 
         com.github.lariscy.jserverrepo.server.service"/>
     
     <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
         <property name="location" value="db.properties"/>
+    </bean>
+    
+    <bean id="nettyServer" class="com.github.lariscy.jserverrepo.server.net.NettyServer">
+        <property name="port" value="8585"/>
     </bean>
     
     <bean id="mysqlDataSource" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">

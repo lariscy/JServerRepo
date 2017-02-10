@@ -16,6 +16,7 @@ public class NodeDaoMysql implements NodeDao {
     @Autowired
     private JdbcTemplate mysqlJdbcTemplate;
     
+    @Override
     public List<Node> getNodes(){
         return mysqlJdbcTemplate.query("SELECT * FROM node", new BeanPropertyRowMapper<>(Node.class));
     }

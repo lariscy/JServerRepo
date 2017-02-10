@@ -40,7 +40,6 @@ public class App {
     public void run(){
         Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
         
-        nettyServer.setPort(8585);
         if (!nettyServer.bind()){
             LOG.error("server failed to start");
             System.exit(-1);
