@@ -1,6 +1,6 @@
 package com.github.lariscy.jserverrepo.server.dao;
 
-import com.github.lariscy.jserverrepo.server.model.Node;
+import com.github.lariscy.jserverrepo.shared.model.Node;
 import java.util.List;
 
 /**

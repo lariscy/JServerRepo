@@ -1,8 +1,8 @@
 package com.github.lariscy.jserverrepo.server;
 
 import com.github.lariscy.jserverrepo.server.dao.NodeDaoMysql;
-import com.github.lariscy.jserverrepo.server.model.Node;
 import com.github.lariscy.jserverrepo.server.net.NettyServer;
+import com.github.lariscy.jserverrepo.shared.model.Node;
 import com.google.gson.Gson;
 import java.util.List;
 import org.slf4j.Logger;
